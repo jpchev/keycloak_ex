@@ -12,7 +12,7 @@ to manage a user directory service
 
 ### objects
 
-the following Keycloak objects are shown:
+the following Keycloak objects are covered:
 
 * [realm](exkc-keycloak/realm/exkc.json)
 * users
@@ -27,7 +27,7 @@ because this client authenticates through a *client id* and a *client secret*, p
 
 ### roles
 
-the following concepts of roles are shown:
+the following concepts of roles are covered:
 
 * manage users with roles in Keycloak 
 * position roles in JWT tokens through a custom *token mapper*
@@ -36,7 +36,7 @@ the following concepts of roles are shown:
 
 ### *grant types* OAuth2.0
 
-the following concepts are shown:
+the following concepts are covered:
 * *authorisation code flow* with *PKCE*, used in a web UI
 * *client credentials flow*, imposing the client authentication through a *client id* and *client secret*, 
   used in an backend storing a secret in a secure way
