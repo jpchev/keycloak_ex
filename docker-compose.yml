@@ -1,0 +1,91 @@
+version: '3.7'
+
+services:
+  exkc-db:
+    container_name: exkc-db
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      - exkc
+    environment:
+      POSTGRES_DB: exkc
+      POSTGRES_USER: exkc
+      POSTGRES_PASSWORD: exkc
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/db:/docker-entrypoint-initdb.d
+
+  exkc-keycloak:
+    container_name: keycloak
+    depends_on:
+      - exkc-db
+    build:
+      context: exkc-keycloak
+    ports:
+      - 8088:8080
+    networks:
+      - exkc
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://exkc-db:5432/exkc?currentSchema=keycloak
+      KC_DB_USERNAME: exkc
+      KC_DB_PASSWORD: exkc
+      KEYCLOAK_FRONTEND_URL: http://localhost:8088/auth
+      KEYCLOAK_HOSTNAME_URL: http://exkc-keycloak:8080
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    security_opt:
+      - 'label:disable'
+    command: [ "start-dev", "--db=postgres" , "--import-realm" ]
+
+  exkc-api:
+    container_name: exkc-api
+    depends_on:
+      - exkc-keycloak
+    restart: always
+    build:
+      context: exkc-api
+    ports:
+      - 8082:8082
+    networks:
+      - exkc
+    environment:
+      JWT_ISSUER_URI: http://localhost:8088/realms/exkc
+      JWT_JWK_ISSUER_URI: http://exkc-keycloak:8080/realms/exkc/protocol/openid-connect/certs
+      
+  exkc-backend:
+    container_name: exkc-backend
+    depends_on:
+      - exkc-keycloak
+    restart: always
+    build:
+      context: exkc-backend
+    ports:
+      - 8080:8080
+    networks:
+      - exkc
+    environment:
+      JWT_ISSUER_URI: http://localhost:8088/realms/exkc
+      JWT_JWK_ISSUER_URI: http://exkc-keycloak:8080/realms/exkc/protocol/openid-connect/certs
+ 
+  exkc-ui:
+    container_name: exkc-ui
+    restart: always
+    build:
+      context: exkc-ui
+    ports:
+      - 9090:9090
+    networks:
+      - exkc
+      
+volumes:
+  pgdata:
+
+networks:
+  exkc:

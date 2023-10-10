@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration >
+
+  <!-- DEFINITION DES APPENDERS  -->
+
+  <!-- pour la definition des patterns, voir : -->
+  <!-- https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html -->
+
+  <!--
+       IMPORTANT : Pour les applications REST
+       Activer les identifiants de corrélation de logs xRequestID et xSessionId, ex :
+       <param name="ConversionPattern" value="[%d{dd/MM/yyyy HH:mm:ss}] %X{xRequestID} %X{xSessionID} %x - %p %C - %m%n"/>
+   -->
+
+  <Appenders>
+    <!-- CONSOLE -->
+    <Console name="STDOUT" target="SYSTEM_OUT">
+      <PatternLayout
+        pattern="%d{dd/MM/yyyy HH:mm:ss} | %X{xRequestID} | %X{xSessionID} | %5p | %c{1} | %m%n" />
+    </Console>
+    <!-- SERVEUR -->
+    <RollingFile name="SERVEUR"
+                 fileName="${sys:log4j2.logDir:-default}/plateforme-france-services.log"
+                 filePattern="${sys:log4j2.logDir}/plateforme-france-services_archive.%d{yyyy-MM-dd}.log"
+                 ignoreExceptions="false">
+		<PatternLayout>
+        	<Pattern>[%-5p][ %d{dd/MM/yyyy HH:mm:ss} %X{xRequestID} %X{xSessionID} %X{xUrl}][%t] - [ %c{1}] >> %m%n
+            </Pattern>
+        </PatternLayout>
+        <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+	</RollingFile>
+  </Appenders>
+
+  <!-- LOGGERS LEVEL -->
+  <!-- pour les logs, on ouvre au max avant de restreindre
+         dans les catégories suivantes
+     -->
+
+  <Loggers>
+
+    <Logger name="exkc" level="DEBUG">
+    </Logger>
+
+    <!--
+
+            API bas niveau
+
+        -->
+
+    <Logger name="org.springframework.security" level="DEBUG">
+    </Logger>
+
+    <!-- activation des differents modes -->
+    <Root level="debug">
+      <AppenderRef ref="STDOUT"/>
+    </Root>
+
+  </Loggers>
+
+
+</Configuration>
