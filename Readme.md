@@ -37,7 +37,7 @@ the following concepts of roles are covered:
 ### *grant types* OAuth2.0
 
 the following concepts are covered:
-* *authorisation code flow* with *PKCE*, used in a web UI
+* *authorization code flow* with *PKCE*, used in a web UI
 * *client credentials flow*, imposing the client authentication through a *client id* and *client secret*, 
   used in an backend storing a secret in a secure way
 * *password* (deprecated but useful to test and debug)
