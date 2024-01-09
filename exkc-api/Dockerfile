@@ -1,4 +1,4 @@
-FROM openjdk
+FROM docker.io/openjdk
 
 RUN mkdir /opt/exkc-api
 COPY target/exkc-api.jar /opt/exkc-api/
