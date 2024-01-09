@@ -1,4 +1,4 @@
-FROM openjdk
+FROM docker.io/openjdk
 
 RUN mkdir /opt/exkc-backend
 COPY target/exkc-backend.jar /opt/exkc-backend/
