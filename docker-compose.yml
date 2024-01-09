@@ -3,7 +3,7 @@ version: '3.7'
 services:
   exkc-db:
     container_name: exkc-db
-    image: postgres
+    image: docker.io/postgres
     restart: always
     ports:
       - 5432:5432
