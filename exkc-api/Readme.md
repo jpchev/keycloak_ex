@@ -2,12 +2,14 @@
 
 ## get token
 
+```bash
 curl --location --request POST 'http://localhost:8088/realms/exkc/protocol/openid-connect/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'client_id=exkc-partner' \
 --data-urlencode 'client_secret=LOGQJV0Pqn5S4Ivytlo6vC745uwzV7mE' \
 --data-urlencode 'scope=email' \
 --data-urlencode 'grant_type=client_credentials'
+```
 
 ## exemples
 
