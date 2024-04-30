@@ -93,5 +93,5 @@ podman-compose down
 
 ## how to delete data
 
-podman volume rm presentationkeycloak_pgdata
+podman volume rm exkc_pgdata
 
