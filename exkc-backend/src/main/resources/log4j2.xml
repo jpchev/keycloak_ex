@@ -20,8 +20,8 @@
     </Console>
     <!-- SERVEUR -->
     <RollingFile name="SERVEUR"
-                 fileName="${sys:log4j2.logDir:-default}/plateforme-france-services.log"
-                 filePattern="${sys:log4j2.logDir}/plateforme-france-services_archive.%d{yyyy-MM-dd}.log"
+                 fileName="${sys:log4j2.logDir:-default}/backend.log"
+                 filePattern="${sys:log4j2.logDir}/backend_archive.%d{yyyy-MM-dd}.log"
                  ignoreExceptions="false">
 		<PatternLayout>
         	<Pattern>[%-5p][ %d{dd/MM/yyyy HH:mm:ss} %X{xRequestID} %X{xSessionID} %X{xUrl}][%t] - [ %c{1}] >> %m%n
