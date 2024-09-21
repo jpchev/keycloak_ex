@@ -20,5 +20,5 @@ api:
     serverUrl: http://localhost:8088/auth
     realm: exkc
     grantType: client_credentials
-    tmpPassword: "doc@poste2007DOC@POSTE"
+    tmpPassword: "xxxxxxxxxxxx"
     defaultRole: default-roles-test
